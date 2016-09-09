@@ -23,6 +23,8 @@ case $1 in
   *)
     node lib/server.js &
     docker run $OPTS
+    docker kill nginx
     docker rm -v nginx
+    ps | grep node | cut -f2 -d " " | xargs kill -9
     ;;
 esac
