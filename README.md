@@ -33,6 +33,12 @@ To proxy requests correctly please consider changing the ip in `docker.sh:13` to
 
     --add-host myproxy:10.0.2.15
 
+## SSL
+
+There are two scripts in `etc/nginx/ssl`:
+
+- `./gen.sh` generates the untrusted SSL certificates
+- `./hpkp.sh` generates the SHA265 for Public-Key-Pin Header
 
 ## License
 

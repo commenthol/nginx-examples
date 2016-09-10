@@ -20,23 +20,29 @@ $IMAGE
 EOS
 )
 
-KILL="docker kill nginx; docker rm -v nginx"
+_kill () {
+  docker kill nginx
+  docker rm -v nginx
+}
 
 case $1 in
-	# attach to the image
   exec)
+    # attach to the image
     docker exec -it nginx /bin/sh
     ;;
-	# single run
-  run)
-    docker run $OPTS
-    $KILL
+  kill)
+    _kill
     ;;
-  # all together
+  run)
+    # single run
+    docker run $OPTS
+    _kill
+    ;;
   *)
+    # all together
     node lib/server.js &
     docker run $OPTS
-    $KILL
+    _kill
     ps | grep node | cut -f2 -d " " | xargs kill -9
     ;;
 esac
